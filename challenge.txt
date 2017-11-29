@@ -8,7 +8,9 @@ Existirán los siguientes recursos REST:
 ● API para establecer una conexión continua, ya sea vía polling, o streaming (por ejemplo con un websocket). Esta conexión devuelve inicialmente el board completo, y en la medida en que cambia el estado del tiempo, se notifican las novedades a través del canal.
 Estos recursos (o los que se definan), serán relativos a un board. Por ejemplo: /boards/martin/
 Cuando se registra el interés en una locación pasan dos cosas:
-1) Se registra el interés en algún tipo de base de datos (redis, mongo, mysql, hsqldb o lo que quieras), de manera que estos intereses sobrevivan a un reinicio 2) Un proceso recolector comienza a hacer polling sobre el servicio de tiempo y persiste las actualizaciones del tiempo. Tener especial cuidado de no exceder la cantidad máxima de requerimientos de tiempo (2000 diarias)
+1) Se registra el interés en algún tipo de base de datos (redis, mongo, mysql, hsqldb o lo que quieras), de manera que estos intereses sobrevivan a un reinicio 
+2) Un proceso recolector comienza a hacer polling sobre el servicio de tiempo y persiste las actualizaciones del tiempo. 
+Tener especial cuidado de no exceder la cantidad máxima de requerimientos de tiempo (2000 diarias)
 El servicio de tiempo a usar es https://developer.yahoo.com/weather/
 Cuando la aplicación arranca, releva todas las locaciones de todos los boards desde la base de datos y se suscribe (recomienza el polling) a todas.
 Front end
