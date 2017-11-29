@@ -1,11 +1,12 @@
 {
   "name": "weather-report",
   "version": "0.1.0",
-	"private": true,
-	"devDependencies": {
-		"react-scripts": "1.0.17"
-	},
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "1.0.17"
+  },
   "dependencies": {
+    "material-ui": "^0.19.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
