@@ -4,8 +4,12 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render( 
-	<App / >,
-	document.getElementById('root')
-);
+// TODO: This import is not working without brackets.
+import { BrowserRouter } from 'react-router-dom'
+
+ReactDOM.render((
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>
+), document.getElementById('root'));
 registerServiceWorker();
