@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Board from './Board';
+import BoardList from './BoardList';
 
 class Boards extends Component {
-
-  constructor(props){
-    super();
-    this.username = props.match.params.user;
-  }
-  
+ 
   render() {
     return (
-      <div>
-        <h2>This are the nested routes for {this.username}</h2>
-      </div>
+			<Switch>
+				<Route exact path='/boards/:user' component={BoardList} />
+				<Route path='/boards/:user/:boardId' component={Board} />
+			</Switch>
     );
   }
 }
