@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 
 class BoardList extends Component {
@@ -25,7 +26,7 @@ class BoardList extends Component {
         <h2>This are the nested routes for {this.state.userName}</h2>
         <ul>
           {this.state.boards.map(board =>
-            <li key={board.id}>{board.name}</li>
+            <li><Link to={{ pathname: `/boards/${this.state.userName}/${board.id}` } } >{board.name}</Link></li>
           )}
         </ul>
       </div>

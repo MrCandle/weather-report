@@ -5,21 +5,19 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
-	state = {
-    logged: false,
-	};
-	
-	handleChange = (event, logged) => {
-    this.setState({logged: logged});
-	};
-	
+
+	isLoggedIn(){
+		return sessionStorage.getItem('loggedIn') === 'true';		
+	}	
+
   render() {
     return (
 			<AppBar
           title="Weather Report"
-          iconElementRight={this.state.logged ? <Logged /> : <Login />}
+          iconElementRight={this.isLoggedIn() ? <Logged /> : <Login />}
       />
     );
   }
@@ -29,7 +27,9 @@ class Login extends Component {
 
   render() {
     return (
-      <FlatButton label="Login" />
+			<Link to='/login'>
+      	<FlatButton label="Login" />
+			</Link>
     );
   }
 }
@@ -45,8 +45,7 @@ class Logged extends Component {
 				targetOrigin={{horizontal: 'right', vertical: 'top'}}
 				anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 			>
-				<MenuItem primaryText="Refresh" />
-				<MenuItem primaryText="Help" />
+				<MenuItem primaryText="My Profile" />
 				<MenuItem primaryText="Sign out" />
 			</IconMenu>
     );
