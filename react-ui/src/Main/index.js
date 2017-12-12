@@ -5,7 +5,7 @@ import Boards from '../Boards';
 import Login from '../Login';
 
 function isLoggedIn() {
-	return Object.keys(sessionStorage.getItem('currentUser')).length > 0;
+	return sessionStorage.getItem('currentUser') !== null;
 }
 
 class Main extends Component {

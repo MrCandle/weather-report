@@ -23,10 +23,8 @@ function fetchBoardsSuccess(boards) {
 }
 
 export function fetchBoards() {
-	console.log('fetch boards action');
 	return function (dispatch) {
 		return boardApi.fetchBoards().then(boards => {
-			console.log(`Dispatching fetchBoardsSuccess: ${boards}`);
 			dispatch(fetchBoardsSuccess(boards));
 		});
 	}

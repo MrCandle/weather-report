@@ -1,24 +1,56 @@
 import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import FlatButton from 'material-ui/FlatButton';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
 
+	constructor(props) {
+		super(props);
+
+		this.toggle = this.toggle.bind(this);
+		this.state = {
+      isOpen: false
+    };
+	}
+
 	isLoggedIn(){
-		return sessionStorage.getItem('loggedIn') === 'true';		
+		return sessionStorage.getItem('currentUser') !== null;
 	}	
 
+	toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+	}
+	
   render() {
     return (
-			<AppBar
-          title="Weather Report"
-          iconElementRight={this.isLoggedIn() ? <Logged /> : <Login />}
-      />
+			<Navbar color="faded" light expand="md">
+				<NavbarBrand href="/">reactstrap</NavbarBrand>
+				<NavbarToggler onClick={this.toggle} />
+				<Collapse isOpen={this.state.isOpen} navbar>
+					<Nav className="ml-auto" navbar>
+						{/* <NavItem>
+							<NavLink href="/boards/">Components</NavLink>
+						</NavItem> */}
+						{/* <NavItem>
+							<NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+						</NavItem> */}
+						{this.isLoggedIn() ? <Logged /> : <Login />}
+					</Nav>
+				</Collapse>
+			</Navbar>
     );
   }
 }
@@ -27,9 +59,9 @@ class Login extends Component {
 
   render() {
     return (
-			<Link to='/login'>
-      	<FlatButton label="Login" />
-			</Link>
+			<NavItem>
+				<NavLink tag={Link} to="/login">Login</NavLink>
+			</NavItem>
     );
   }
 }
@@ -38,16 +70,23 @@ class Logged extends Component {
 
   render() {
     return (
-      <IconMenu
-				iconButtonElement={
-					<IconButton><MoreVertIcon /></IconButton>
-				}
-				targetOrigin={{horizontal: 'right', vertical: 'top'}}
-				anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-			>
-				<MenuItem primaryText="My Profile" />
-				<MenuItem primaryText="Sign out" />
-			</IconMenu>
+			<UncontrolledDropdown nav inNavbar>
+				<DropdownToggle nav caret>
+					Options
+				</DropdownToggle>
+				<DropdownMenu >
+					<DropdownItem>
+						Option 1
+					</DropdownItem>
+					<DropdownItem>
+						Option 2
+					</DropdownItem>
+					<DropdownItem divider />
+					<DropdownItem>
+						Reset
+					</DropdownItem>
+				</DropdownMenu>
+			</UncontrolledDropdown>
     );
   }
 }

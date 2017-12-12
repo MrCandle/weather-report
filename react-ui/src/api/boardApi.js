@@ -3,10 +3,8 @@ import axios from 'axios';
 class BoardApi {
 
 	static fetchBoards() {
-		console.log('fetch board api');
 		return axios.get(`${window.location.origin}/api/boards`)
 			.then(res => {
-				console.log('response: ', res.data);
 				return res.data;
 			});
 	}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class Login extends Component {
@@ -11,32 +10,42 @@ class Login extends Component {
 			username: '',
 			password: ''
 		};
+
+		this.handleClick = this.handleClick.bind(this);
+		this.handlePasswordChange = this.handlePasswordChange.bind(this);
+		this.handleUsernameChange = this.handleUsernameChange.bind(this);
+
 	}
 
 	handleClick(event){
-		sessionStorage.setItem('currentUser', this.state);
+		sessionStorage.setItem('currentUser', this.state.username);
+	}
+
+	handleUsernameChange(event){
+		this.setState({username: event.target.value})
+	}
+
+	handlePasswordChange(event){
+		this.setState({password: event.target.value})
 	}
 
   render() {
     return (
-      <div>
-        <TextField
-             hintText="Enter your Username"
-             floatingLabelText="Username"
-             onChange = {(event,newValue) => this.setState({username:newValue})}
-             />
-           <br/>
-             <TextField
-               type="password"
-               hintText="Enter your Password"
-               floatingLabelText="Password"
-               onChange = {(event,newValue) => this.setState({password:newValue})}
-               />
-             <br/>
-						<Link to={`/boards/${this.state.username}`}>
-							<RaisedButton label="Submit" primary={true}  onClick={(event) => this.handleClick(event)}/>
-						</Link>
-      </div>
+      <Form>
+				<FormGroup>
+          <Label for="username">Username</Label>
+					<Input type="text" name="username" id="username" placeholder="Enter your username" 
+						onChange={this.handleUsernameChange}/>
+        </FormGroup>
+        <FormGroup>
+          <Label for="password">Password</Label>
+					<Input type="password" name="password" id="password" placeholder="Enter your password" 
+						onChange={this.handlePasswordChange}/>
+        </FormGroup>
+				<Link to={`/boards/${this.state.username}`}>
+					<Button color="primary" onClick={(event) => this.handleClick(event)}>Login</Button>
+				</Link>
+      </Form>
     );
   }
 }

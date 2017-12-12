@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/store'
+import 'bootstrap/dist/css/bootstrap.css';
 
 const store = configureStore()
 
