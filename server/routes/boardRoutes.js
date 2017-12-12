@@ -1,7 +1,7 @@
 'use strict';
 var board = require('../controllers/boardController');
 
-module.exports = function(app) {
+module.exports = function (app) {
 	app.route('/api/boards')
 		.get(board.getAll)
 		.post(board.create);

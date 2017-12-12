@@ -1,0 +1,58 @@
+Presentational Components:
+
+Board: Detalles del Board seleccionado, mostrando LocationWeatherList para ese board.
+LocationWeather: Detalles de la ubicacion seleccionada, mostrando el pronostico extendido a 5 días.
+
+Container Components:
+
+Main: Contiene las principales rutas de la aplicación.
+BoardList: Lista de Boards, hechas con cards de material-ui.
+LocationWeatherList: Lista de LocationsWeathers, hecha con cards de material-ui.
+
+
+**** Redux ****
+
+Actions de la App:
+LOGIN
+LOGOUT
+
+Actions del BoardList:
+FETCH_BOARDS
+
+Actions del Board:
+ADD_BOARD
+EDIT_BOARD
+REMOVE_BOARD
+
+App State:
+
+{
+	user: 
+	{
+		id: ''
+		name: ''
+	},
+	boards:
+	[
+		{
+			id: 0,
+			name: '',
+			locations:[
+				'ARG', 'BRZ' // Ejemplos
+			]
+		}
+	],
+	locations: [ 
+		//Acá no se si corresponde tener los locations, porque dependen del board que uno selecciona.
+		{
+			id: 'ARG',
+			name: 'Argentina',
+			weeklyWeather: [
+				// Array con los objetos de weather que devuelve la API de Yahoo.
+			],
+			hourlyWeather: [
+				
+			]
+		}
+	]
+}

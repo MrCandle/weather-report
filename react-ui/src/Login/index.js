@@ -14,7 +14,7 @@ class Login extends Component {
 	}
 
 	handleClick(event){
-		sessionStorage.setItem('loggedIn', 'true');
+		sessionStorage.setItem('currentUser', this.state);
 	}
 
   render() {
