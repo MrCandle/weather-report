@@ -36,8 +36,8 @@ class Header extends Component {
 	
   render() {
     return (
-			<Navbar color="faded" light expand="md">
-				<NavbarBrand href="/">reactstrap</NavbarBrand>
+			<Navbar color="dark" dark expand="md">
+				<NavbarBrand href="/">Mostly Accurate Weather Report</NavbarBrand>
 				<NavbarToggler onClick={this.toggle} />
 				<Collapse isOpen={this.state.isOpen} navbar>
 					<Nav className="ml-auto" navbar>

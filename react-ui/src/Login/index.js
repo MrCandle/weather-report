@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import styles from './styles';
 
 class Login extends Component {
 
@@ -31,7 +32,7 @@ class Login extends Component {
 
   render() {
     return (
-      <Form>
+      <Form style={styles.loginForm}>
 				<FormGroup>
           <Label for="username">Username</Label>
 					<Input type="text" name="username" id="username" placeholder="Enter your username" 

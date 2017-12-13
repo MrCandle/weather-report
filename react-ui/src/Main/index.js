@@ -12,17 +12,19 @@ class Main extends Component {
 
   render() {
     return (
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/login' component={Login} />
-				<Route path='/boards' render={() => (
-					isLoggedIn() ? (
-					<Boards />
-					) : (
-						<Redirect to='/login'/>
-					)
-				)}/>
-      </Switch>
+			<div class="container">
+				<Switch>
+					<Route exact path='/' component={Home} />
+					<Route path='/login' component={Login} />
+					<Route path='/boards' render={() => (
+						isLoggedIn() ? (
+						<Boards />
+						) : (
+							<Redirect to='/login'/>
+						)
+					)}/>
+				</Switch>
+			</div>
     );
   }
 }

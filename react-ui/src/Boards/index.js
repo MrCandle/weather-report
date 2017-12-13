@@ -8,8 +8,8 @@ class Boards extends Component {
   render() {
     return (
 			<Switch>
-				<Route exact path='/boards/:user' component={BoardList} />
-				<Route path='/boards/:user/:boardId' component={Board} />
+				<Route exact path='/boards/:username' component={BoardList} />
+				<Route path='/boards/:username/:boardId' component={Board} />
 			</Switch>
     );
   }
