@@ -26,7 +26,7 @@ class BoardList extends Component {
 				<div class="row">
 					{this.props.boards.map(board =>
 						<div className="col-sm-12 col-md-6 col-lg-3">
-							<Card style={styles.boardCard}>
+							<Card>
 								<CardBody>
 									<CardTitle>{board.name}</CardTitle>
 									<CardText>Locations in this board: Lista de locations</CardText>
