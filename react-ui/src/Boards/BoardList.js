@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as boardActions from '../actions/boardActions';
 import {Link} from 'react-router-dom';
 import { Card, CardText, CardBody, CardTitle, Button } from 'reactstrap';
+import * as boardActions from '../actions/boardActions';
 import styles from './styles';
 	
 class BoardList extends Component {
