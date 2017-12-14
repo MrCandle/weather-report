@@ -41,12 +41,6 @@ class Header extends Component {
 				<NavbarToggler onClick={this.toggle} />
 				<Collapse isOpen={this.state.isOpen} navbar>
 					<Nav className="ml-auto" navbar>
-						{/* <NavItem>
-							<NavLink href="/boards/">Components</NavLink>
-						</NavItem> */}
-						{/* <NavItem>
-							<NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
-						</NavItem> */}
 						{this.isLoggedIn() ? <Logged /> : <Login />}
 					</Nav>
 				</Collapse>

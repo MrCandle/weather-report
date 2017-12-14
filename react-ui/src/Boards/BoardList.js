@@ -25,7 +25,7 @@ class BoardList extends Component {
         <h2>Welcome, {this.username}</h2>
 				<div class="row">
 					{this.props.boards.map(board =>
-						<div className="col-sm-12 col-md-6 col-lg-3">
+						<div className="col-sm-12 col-md-6 col-lg-3" style={styles.cardColumn}>
 							<Card>
 								<CardBody>
 									<CardTitle>{board.name}</CardTitle>
