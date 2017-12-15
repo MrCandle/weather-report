@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
+import { Collapse,  Navbar,  NavbarToggler,  NavbarBrand,  Nav,  NavItem,  NavLink,
+  UncontrolledDropdown,  DropdownToggle,  DropdownMenu,  DropdownItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
@@ -54,7 +44,9 @@ class Login extends Component {
   render() {
     return (
 			<NavItem>
-				<NavLink tag={Link} to="/login">Login</NavLink>
+				<NavLink tag={Link} to="/login">
+					<Button color="primary">Sign In</Button>
+				</NavLink>
 			</NavItem>
     );
   }

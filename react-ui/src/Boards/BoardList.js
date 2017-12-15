@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
 import { Card, CardText, CardBody, CardTitle, Button,
-				Modal, ModalHeader, ModalBody, ModalFooter, Label, Input } from 'reactstrap';
+				Modal, ModalHeader, ModalBody, ModalFooter, Label, Input,
+				ListGroup, ListGroupItem } from 'reactstrap';
 import FaPencil from 'react-icons/lib/fa/pencil';
 import * as boardActions from '../actions/boardActions';
 import styles from './styles';
@@ -74,18 +75,6 @@ class BoardList extends Component {
 		this.toggle();
 	}
 
-	hasLocations(board){
-		if (board.locations.length > 0){
-			return true;
-		}
-
-		return false;
-	}
-
-	isEditing(){
-		return (this.state.boardId > 0);
-	}
-
   componentDidMount() {
 		if (this.props.boards.length === 0 ){
 			this.props.actions.fetchBoards();
@@ -103,7 +92,13 @@ class BoardList extends Component {
 								<CardBody>
 									<CardTitle>{board.name}<span onClick={() => this.handleEdit(board)}><FaPencil size={18} color="gray" style={{marginLeft: '10px', verticalAlign: 'top'}}/></span></CardTitle>
 									<CardText>
-
+										{board.locations.length > 0 ? 
+											<ListGroup>
+												{board.locations.map(loc => { 
+													return <ListGroupItem>{loc.title}</ListGroupItem>
+												})}
+											</ListGroup>
+											: <span>This board doesn't have locations! Try adding one</span>}
 									</CardText>
 									<Link to={{ pathname: `/boards/${this.state.username}/${board.id}`}}>
 										<Button outline color="primary">Open</Button>
@@ -125,10 +120,10 @@ class BoardList extends Component {
 						<Input type="text" name="boardName" id="boardName" placeholder="Enter a cool name" value={this.state.boardName} onChange={this.handleBoardNameChange}/>
           </ModalBody>
           <ModalFooter>
-			{this.isEditing() ? 
-				 <Button color="success" onClick={this.updateBoard} disabled={!this.state.modalValid}>Update!</Button>:
-				 <Button color="success" onClick={this.createBoard} disabled={!this.state.modalValid}>Create!</Button>}{' '}
-				<Button color="link" onClick={this.toggle}>Nevermind</Button>
+					{this.state.boardId > 0 ? 
+						<Button color="success" onClick={this.updateBoard} disabled={!this.state.modalValid}>Update!</Button>:
+						<Button color="success" onClick={this.createBoard} disabled={!this.state.modalValid}>Create!</Button>}{' '}
+					<Button color="link" onClick={this.toggle}>Nevermind</Button>
           </ModalFooter>
         </Modal>
 			</div>
