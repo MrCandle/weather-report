@@ -12,6 +12,7 @@ exports.getAll = function(req, res) {
 };
 
 exports.create = function(req, res) {
+	console.log(req,res)
 //   var new_board = new Task(req.body);
 //   new_board.save(function(err, board) {
 //     if (err)

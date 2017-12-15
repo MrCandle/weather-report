@@ -39,6 +39,7 @@ class Board extends Component {
 
   locationSelected(location){
 		locationApi.getLocationById(location.value).then(location => {
+			console.log(location);
 			this.setState({selectedLocation: location})
 		})
   }
@@ -77,6 +78,7 @@ class LocationCard extends Component{
 			location: props.location
 		}
 
+		console.log(this.state.location);
 		this.handleClick = this.handleClick.bind(this);
 	}
 
