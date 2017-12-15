@@ -11,7 +11,7 @@ class BoardApi {
 
 	static addBoard(name) {
 		// create body for post
-		return axios.post(`${window.location.origin}/api/boards`, name)
+		return axios.post(`${window.location.origin}/api/boards`, {name: name})
 			.then(res => {
 				return res.data;
 			});
@@ -19,14 +19,14 @@ class BoardApi {
 
 	static editBoard(id, name) {
 		// create body for put
-		return axios.put(`${window.location.origin}/api/board/${id}`, name)
+		return axios.put(`${window.location.origin}/api/boards/${id}`, {name: name})
 		.then(res => {
 			return res.data;
 		});
 	}
 
 	static removeBoard(id) {
-		return axios.delete(`${window.location.origin}/api/board/${id}`)
+		return axios.delete(`${window.location.origin}/api/boards/${id}`)
 		.then(res => {
 			return res.data;
 		});

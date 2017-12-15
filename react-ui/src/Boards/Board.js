@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Async} from 'react-select';
-import {Link} from 'react-router-dom';
 import { Card, CardImg, CardText, CardBody, CardTitle, Button, CardSubtitle } from 'reactstrap';
 import locationApi from '../api/locationApi';
 
@@ -94,7 +93,7 @@ class LocationCard extends Component{
 					<CardTitle>{this.state.location.title}</CardTitle>
 					<CardSubtitle><strong>{this.state.location.condition.temp}º</strong>, {this.state.location.condition.text}</CardSubtitle>
 					<CardText>
-						{this.state.location.forecast.map(forecast => {
+						{this.state.location.forecast.map(forecast =>  { 
 							<div>
 								<label>{forecast.day}, {forecast.date}</label>
 								<label>{forecast.text}</label>

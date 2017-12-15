@@ -18,7 +18,9 @@ export function fetchBoards() {
 export function addBoard(name) {
 	return function (dispatch) {
 		return boardApi.addBoard(name).then(response => {
-			return fetchBoards();
+			return boardApi.fetchBoards().then(boards => {
+				dispatch(fetchBoardsSuccess(boards));
+			});
 		});
 	}
 }
@@ -26,7 +28,9 @@ export function addBoard(name) {
 export function editBoard(id, name) {
 	return function (dispatch) {
 		return boardApi.editBoard(id, name).then(response => {
-			return fetchBoards();
+			return boardApi.fetchBoards().then(boards => {
+				dispatch(fetchBoardsSuccess(boards));
+			});
 		});
 	}
 }

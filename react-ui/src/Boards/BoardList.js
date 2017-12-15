@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
 import { Card, CardText, CardBody, CardTitle, Button,
 				Modal, ModalHeader, ModalBody, ModalFooter, Label, Input } from 'reactstrap';
+import FaPencil from 'react-icons/lib/fa/pencil';
 import * as boardActions from '../actions/boardActions';
 import styles from './styles';
 	
@@ -14,13 +15,17 @@ class BoardList extends Component {
 		this.state = {
 			username: props.match.params.username,
 			modal: false,
+			boardId: 0,
 			boardName: '',
 			modalValid: false
 		}
 
 		this.toggle = this.toggle.bind(this);
 		this.createBoard = this.createBoard.bind(this);
+		this.updateBoard = this.updateBoard.bind(this);
 		this.handleBoardNameChange = this.handleBoardNameChange.bind(this);
+		this.handleEdit = this.handleEdit.bind(this);
+		this.handleCreate = this.handleCreate.bind(this);
 	}
 	
   toggle() {
@@ -31,10 +36,16 @@ class BoardList extends Component {
 		
 	createBoard(){
 		this.props.actions.addBoard(this.state.boardName);
+		this.toggle();
+	}
+
+	updateBoard(){
+		this.props.actions.editBoard(this.state.boardId, this.state.boardName);
+		this.toggle();
 	}
 
 	handleBoardNameChange(event){
-		this.setState({boardName: event.target.value,});
+		this.setState({boardName: event.target.value});
 
 		if (event.target.value) {
 			this.setState({
@@ -45,6 +56,34 @@ class BoardList extends Component {
 				modalValid: false
 			})
 		}
+	}
+
+	handleEdit(board){
+		this.setState({
+			boardId: board.id,
+			boardName: board.name
+		});
+		this.toggle();
+	}
+
+	handleCreate(){
+		this.setState({
+			boardId: 0,
+			boardName: ''
+		});
+		this.toggle();
+	}
+
+	hasLocations(board){
+		if (board.locations.length > 0){
+			return true;
+		}
+
+		return false;
+	}
+
+	isEditing(){
+		return (this.state.boardId > 0);
 	}
 
   componentDidMount() {
@@ -62,10 +101,12 @@ class BoardList extends Component {
 						<div className="col-sm-12 col-md-6 col-lg-3" style={styles.cardColumn}>
 							<Card>
 								<CardBody>
-									<CardTitle>{board.name}</CardTitle>
-									<CardText>Locations in this board: Lista de locations</CardText>
+									<CardTitle>{board.name}<span onClick={() => this.handleEdit(board)}><FaPencil size={18} color="gray" style={{marginLeft: '10px', verticalAlign: 'top'}}/></span></CardTitle>
+									<CardText>
+
+									</CardText>
 									<Link to={{ pathname: `/boards/${this.state.username}/${board.id}`}}>
-										<Button>View</Button>
+										<Button outline color="primary">Open</Button>
 									</Link>
 								</CardBody>
 							</Card>
@@ -74,7 +115,7 @@ class BoardList extends Component {
 				</div>
 				<div class="row">
 					<div class="offset-sm-9">
-						<Button color="primary" onClick={this.toggle}>Add board</Button>
+						<Button color="primary" onClick={this.handleCreate}>Add board</Button>
 					</div>
 				</div>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -84,8 +125,10 @@ class BoardList extends Component {
 						<Input type="text" name="boardName" id="boardName" placeholder="Enter a cool name" value={this.state.boardName} onChange={this.handleBoardNameChange}/>
           </ModalBody>
           <ModalFooter>
-            <Button color="success" onClick={this.createBoard} disabled={!this.state.modalValid}>Create!</Button>{' '}
-            <Button color="link" onClick={this.toggle}>Nevermind</Button>
+			{this.isEditing() ? 
+				 <Button color="success" onClick={this.updateBoard} disabled={!this.state.modalValid}>Update!</Button>:
+				 <Button color="success" onClick={this.createBoard} disabled={!this.state.modalValid}>Create!</Button>}{' '}
+				<Button color="link" onClick={this.toggle}>Nevermind</Button>
           </ModalFooter>
         </Modal>
 			</div>
