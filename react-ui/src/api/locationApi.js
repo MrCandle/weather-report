@@ -23,8 +23,8 @@ class LocationApi {
 	// This gets the detailed weather for a location by woeid.
 	static getLocationById(woeid) {
 		var query =
-			`select item, location
-				from weather.forecast 
+			`select item, location 
+				from weather.forecast  
 				where woeid = ${woeid} and u='c'`;
 		return axios.get(`${url}/?q=${query}&format=json`)
 			.then(res => {

@@ -2,30 +2,38 @@
 
 var nextId = 5;
 const boards = [{
-		id: 1,
-		name: 'board 1',
-		locations: [{
-			woeid: '2460286',
-			title: 'Nome, AK, United States',
-			condition: 'Sunny',
-			forecast: []
+	id: 1,
+	name: 'board 1',
+	locations: [{
+		woeid: '2460286',
+		title: 'Nome, AK, United States',
+		condition: {
+			temp: '19',
+			text: 'Sunny'
+		},
+		forecast: [{
+			day: 'dia pepe',
+			date: 'date',
+			high: '33',
+			low: '19'
 		}]
-	},
-	{
-		id: 2,
-		name: 'board 2',
-		locations: []
-	},
-	{
-		id: 3,
-		name: 'board 3',
-		locations: []
-	},
-	{
-		id: 4,
-		name: 'board 4',
-		locations: []
-	},
+	}]
+},
+{
+	id: 2,
+	name: 'board 2',
+	locations: []
+},
+{
+	id: 3,
+	name: 'board 3',
+	locations: []
+},
+{
+	id: 4,
+	name: 'board 4',
+	locations: []
+},
 ];
 
 exports.getAll = function (req, res) {
@@ -49,11 +57,6 @@ exports.create = function (req, res) {
 exports.getById = function (req, res) {
 	var board = boards.find(b => b.id === +req.params.boardId);
 	res.json(board);
-	//   Task.findById(req.params.boardId, function(err, board) {
-	//     if (err)
-	//       res.send(err);
-	//     res.json(board);
-	//   });
 };
 
 exports.update = function (req, res) {
