@@ -8,7 +8,7 @@ import {
 	ListGroup, ListGroupItem
 } from 'reactstrap';
 import FaPencil from 'react-icons/lib/fa/pencil';
-import * as boardActions from '../actions/boardActions';
+import * as boardListActions from '../actions/boardListActions';
 import styles from './styles';
 
 class BoardList extends Component {
@@ -44,7 +44,9 @@ class BoardList extends Component {
 	}
 
 	updateBoard() {
-		this.props.actions.editBoard(this.state.boardId, this.state.boardName);
+		const updatedBoard = this.state.boards.find(b => b.id === this.state.boardId);
+		updatedBoard.name = this.state.boardName;
+		this.props.actions.editBoard(updatedBoard);
 		this.toggle();
 	}
 
@@ -118,34 +120,17 @@ class BoardList extends Component {
 						<Button color="primary" onClick={this.handleCreate}>Add board</Button>
 					</div>
 				</div>
-				<Modal isOpen={this.state.modal} toggle={this.toggle}>
-					<ModalHeader toggle={this.toggle}>New board</ModalHeader>
-					<ModalBody>
-						<Label for="boardName">Board name</Label>
-						<Input type="text" name="boardName" id="boardName" placeholder="Enter a cool name" value={this.state.boardName} onChange={this.handleBoardNameChange} />
-					</ModalBody>
-					<ModalFooter>
-						{this.state.boardId > 0 ?
-							<Button color="success" onClick={this.updateBoard} disabled={!this.state.modalValid}>Update!</Button> :
-							<Button color="success" onClick={this.createBoard} disabled={!this.state.modalValid}>Create!</Button>}{' '}
-						<Button color="link" onClick={this.toggle}>Nevermind</Button>
-					</ModalFooter>
-				</Modal>
 			</div>
 		)
 	}
 }
 
 function mapStateToProps(state) {
-	if (state.boards.length > 0) {
-		return { boards: state.boards }
-	} else {
-		return { boards: [] }
-	}
+	return { boards: state.boards }
 }
 
 function mapDispatchToProps(dispatch) {
-	return { actions: bindActionCreators(boardActions, dispatch) }
+	return { actions: bindActionCreators(boardListActions, dispatch) }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardList);

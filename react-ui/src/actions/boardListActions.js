@@ -1,13 +1,13 @@
-import locationApi from '../api/locationApi';
+import boardApi from '../api/boardApi';
 
-function fetchLocationsSuccess(boards) {
+function fetchBoardsSuccess(boards) {
 	return {
-		type: 'FETCH_LOCATIONS_SUCCESS',
+		type: 'FETCH_BOARDS_SUCCESS',
 		boards
 	}
 }
 
-export function fetch() {
+export function fetchBoards() {
 	return function (dispatch) {
 		return boardApi.fetchBoards().then(boards => {
 			dispatch(fetchBoardsSuccess(boards));
@@ -18,16 +18,6 @@ export function fetch() {
 export function addBoard(name) {
 	return function (dispatch) {
 		return boardApi.addBoard(name).then(response => {
-			return boardApi.fetchBoards().then(boards => {
-				dispatch(fetchBoardsSuccess(boards));
-			});
-		});
-	}
-}
-
-export function editBoard(id, name) {
-	return function (dispatch) {
-		return boardApi.editBoard(id, name).then(response => {
 			return boardApi.fetchBoards().then(boards => {
 				dispatch(fetchBoardsSuccess(boards));
 			});

@@ -1,4 +1,7 @@
 export default {
 	userName: '',
-	boards: []
+	boards: [],
+	board: {
+		locations: []
+	}
 }

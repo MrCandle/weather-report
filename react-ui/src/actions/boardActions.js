@@ -1,44 +1,26 @@
 import boardApi from '../api/boardApi';
 
-function fetchBoardsSuccess(boards) {
+function fetchBoardSuccess(board){
 	return {
-		type: 'FETCH_BOARDS_SUCCESS',
-		boards
+		type: 'FETCH_BOARD_SUCCESS',
+		board
 	}
 }
 
-export function fetchBoards() {
+export function fetchBoard(id) {
 	return function (dispatch) {
-		return boardApi.fetchBoards().then(boards => {
-			dispatch(fetchBoardsSuccess(boards));
+		return boardApi.getBoard(id).then(board => {
+			dispatch(fetchBoardSuccess(board));
 		});
 	}
 }
 
-export function addBoard(name) {
+export function editBoard(board) {
 	return function (dispatch) {
-		return boardApi.addBoard(name).then(response => {
-			return boardApi.fetchBoards().then(boards => {
-				dispatch(fetchBoardsSuccess(boards));
+		return boardApi.editBoard(board).then(response => {
+			return boardApi.getBoard(board.id).then(board => {
+				dispatch(fetchBoardSuccess(board));
 			});
-		});
-	}
-}
-
-export function editBoard(id, name) {
-	return function (dispatch) {
-		return boardApi.editBoard(id, name).then(response => {
-			return boardApi.fetchBoards().then(boards => {
-				dispatch(fetchBoardsSuccess(boards));
-			});
-		});
-	}
-}
-
-export function removeBoard(id) {
-	return function (dispatch) {
-		return boardApi.removeBoard(id).then(response => {
-			return fetchBoards();
 		});
 	}
 }

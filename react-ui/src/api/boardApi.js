@@ -17,9 +17,9 @@ class BoardApi {
 			});
 	}
 
-	static editBoard(id, name) {
+	static editBoard(board) {
 		// create body for put
-		return axios.put(`${window.location.origin}/api/boards/${id}`, { name: name })
+		return axios.put(`${window.location.origin}/api/boards/${board.id}`, { board: board })
 			.then(res => {
 				return res.data;
 			});
@@ -38,6 +38,7 @@ class BoardApi {
 				return res.data;
 			});
 	}
+
 }
 
 export default BoardApi;

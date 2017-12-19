@@ -60,10 +60,12 @@ exports.getById = function (req, res) {
 };
 
 exports.update = function (req, res) {
-	if (req.params.boardId && req.body.name) {
-		const item = boards.find(b => b.id === +req.params.boardId);
+	const board = req.body.board;
+	
+	if (board) {
+		const item = boards.find(b => b.id === board.id);
 		if (item) {
-			item.name = req.body.name;
+			item = board;
 			return res.sendStatus(200);
 		}
 	}
