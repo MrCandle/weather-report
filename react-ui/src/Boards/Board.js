@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Async } from 'react-select';
-import { Card, CardImg, CardText, CardBody, CardTitle, Button, CardSubtitle } from 'reactstrap';
+import FaPencil from 'react-icons/lib/fa/pencil';
 import styles from './styles';
 import locationApi from '../api/locationApi';
+import BoardModal from './BoardModal';
 import LocationList from './LocationList';
 import LocationSearch from './LocationSearch';
 import * as boardActions from '../actions/boardActions';
@@ -16,10 +17,13 @@ class Board extends Component {
 
 		this.state = {
 			board: props.board,
+			modal: false
 		}
 
 		this.locationSelected = this.locationSelected.bind(this);
-		this.handleToggle = this.handleToggle.bind(this);
+		this.toggleModal = this.toggleModal.bind(this);
+		this.handleSave = this.handleSave.bind(this);
+		this.handleRemoval = this.handleRemoval.bind(this);
 	}
 
 	componentDidMount() {
@@ -34,29 +38,52 @@ class Board extends Component {
 
 	locationSelected(location) {
 		locationApi.getLocationById(location.value).then(location => {
-			location.isSelected = false;
 			this.setState(prevState => ({
 				board: {
 					id: prevState.board.id,
 					name: prevState.board.name,
 					locations: [...prevState.board.locations, location]
 				}
-			}))
+			}));
+			this.props.actions.editBoard(this.state.board);
 		})
 	}
 
-	handleToggle(location) {
-		// this.state.board.locations.
-		// 	location.isSelected = !location.isSelected;
+	toggleModal() {
+		this.setState({
+			modal: !this.state.modal
+		});
+	}
 
+	handleSave(name) {
+		var newBoard = {
+			id: this.state.board.id,
+			name: name,
+			locations: this.state.board.locations
+		}
+		this.props.actions.editBoard(newBoard);
+		this.toggleModal();
+	}
+
+	handleRemoval(location) {
+		var newArray = this.state.board.locations.slice();
+		newArray.splice(newArray.findIndex(l => l.woeid === location.woeid), 1);
+		var newBoard = {
+			id: this.state.board.id,
+			name: this.state.board.name,
+			locations: newArray
+		}
+		this.props.actions.editBoard(newBoard);
 	}
 
 	render() {
 		return (
 			<div>
-				<h2>{this.state.board.name}:</h2>
+				<h2>{this.state.board.name}: <span onClick={this.toggleModal}><FaPencil size={18} color="gray" style={{ marginLeft: '10px', verticalAlign: 'top' }} /></span></h2>
 				<LocationSearch handler={this.locationSelected} />
-				<LocationList locations={this.state.board.locations} handleToggle={this.handleToggle} />
+				<LocationList locations={this.state.board.locations} handleRemoval={this.handleRemoval} />
+				{this.state.modal &&
+					<BoardModal isNew={false} name={this.state.board.name} onSave={this.handleSave} onCancel={this.toggleModal}></BoardModal>}
 			</div>
 		);
 	}

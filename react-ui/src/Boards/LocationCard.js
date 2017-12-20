@@ -9,6 +9,12 @@ class LocationCard extends Component {
         this.state = {
             location: props.location
         }
+
+        this.handleRemoval = this.handleRemoval.bind(this);
+    }
+
+    handleRemoval(){
+        this.props.handleRemoval(this.state.location);
     }
 
     render() {
@@ -20,8 +26,7 @@ class LocationCard extends Component {
                     <CardSubtitle><strong>{this.state.location.condition.temp}º</strong>, {this.state.location.condition.text}</CardSubtitle>
                     <CardText>
                         <div class='row'>
-                            {this.state.location.forecast.map(forecast =>
-                            {}
+                            {this.state.location.forecast.map(forecast => { }
                                 // <div class='col-sm-6'>
                                 //     <label class='col-sm-12'>{forecast.day}, {forecast.date}</label>
                                 //     <label class='col-sm-12'>{forecast.text}</label>
@@ -31,9 +36,7 @@ class LocationCard extends Component {
                             )}
                         </div>
                     </CardText>
-                    {this.state.location.isSelected ?
-                        <Button outline color="primary" size='sm' onClick={this.props.handleToggle}>Remove from board</Button> :
-                        <Button color="primary" size='sm' onClick={this.props.handleToggle}>Add to board</Button>}
+                    <Button outline color="primary" size='sm' onClick={this.handleRemoval}>Remove from board</Button>
                 </CardBody>
             </Card>
         )

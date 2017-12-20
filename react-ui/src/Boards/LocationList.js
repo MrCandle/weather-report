@@ -10,10 +10,16 @@ class LocationList extends Component {
         this.state = {
             locations: props.locations
         }
+
+        this.handleRemoval = this.handleRemoval.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({ locations: nextProps.locations })
+    }
+
+    handleRemoval(location) {
+        this.props.handleRemoval(location);
     }
 
     render() {
@@ -21,7 +27,7 @@ class LocationList extends Component {
             <div class="row" style={styles.locationList}>
                 {this.state.locations.map(loc =>
                     <div class="col-sm-3">
-                        <LocationCard handleToggle={() => this.props.handleToggle(loc)} location={loc} />
+                        <LocationCard handleRemoval={this.handleRemoval} location={loc} />
                     </div>
                 )}
             </div>

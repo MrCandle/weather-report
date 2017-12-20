@@ -65,7 +65,8 @@ exports.update = function (req, res) {
 	if (board) {
 		const item = boards.find(b => b.id === board.id);
 		if (item) {
-			item = board;
+			item.name = board.name;
+			item.locations = board.locations;
 			return res.sendStatus(200);
 		}
 	}
