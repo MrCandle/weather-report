@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Button, CardSubtitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Button, CardSubtitle, Row } from 'reactstrap';
 
 class LocationCard extends Component {
 
@@ -13,7 +13,7 @@ class LocationCard extends Component {
         this.handleRemoval = this.handleRemoval.bind(this);
     }
 
-    handleRemoval(){
+    handleRemoval() {
         this.props.handleRemoval(this.state.location);
     }
 
@@ -25,7 +25,7 @@ class LocationCard extends Component {
                     <CardTitle>{this.state.location.title}</CardTitle>
                     <CardSubtitle><strong>{this.state.location.condition.temp}º</strong>, {this.state.location.condition.text}</CardSubtitle>
                     <CardText>
-                        <div class='row'>
+                        <Row>
                             {this.state.location.forecast.map(forecast => { }
                                 // <div class='col-sm-6'>
                                 //     <label class='col-sm-12'>{forecast.day}, {forecast.date}</label>
@@ -34,7 +34,7 @@ class LocationCard extends Component {
                                 //     <label class='col-sm-12'>Low: {forecast.low}</label>
                                 // </div>
                             )}
-                        </div>
+                        </Row>
                     </CardText>
                     <Button outline color="primary" size='sm' onClick={this.handleRemoval}>Remove from board</Button>
                 </CardBody>

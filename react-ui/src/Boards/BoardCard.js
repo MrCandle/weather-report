@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
-    Card, CardText, CardBody, CardTitle, Button, ListGroup, ListGroupItem
+    Card, CardText, CardBody, CardTitle, Button, ListGroup, ListGroupItem, Label
 } from 'reactstrap';
 
 class BoardCard extends Component {

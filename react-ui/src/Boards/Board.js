@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Async } from 'react-select';
 import FaPencil from 'react-icons/lib/fa/pencil';
+import update from 'immutability-helper';
 import styles from './styles';
 import locationApi from '../api/locationApi';
 import BoardModal from './BoardModal';
@@ -38,41 +39,24 @@ class Board extends Component {
 
 	locationSelected(location) {
 		locationApi.getLocationById(location.value).then(location => {
-			this.setState(prevState => ({
-				board: {
-					id: prevState.board.id,
-					name: prevState.board.name,
-					locations: [...prevState.board.locations, location]
-				}
-			}));
-			this.props.actions.editBoard(this.state.board);
+			const newBoard = update(this.state.board, { locations: { $push: [location] } })
+			this.props.actions.editBoard(newBoard);
 		})
 	}
 
 	toggleModal() {
-		this.setState({
-			modal: !this.state.modal
-		});
+		this.setState({ modal: !this.state.modal });
 	}
 
-	handleSave(name) {
-		var newBoard = {
-			id: this.state.board.id,
-			name: name,
-			locations: this.state.board.locations
-		}
+	handleSave(newName) {
+		const newBoard = update(this.state.board, {name: {$set: newName}})
 		this.props.actions.editBoard(newBoard);
 		this.toggleModal();
 	}
 
 	handleRemoval(location) {
-		var newArray = this.state.board.locations.slice();
-		newArray.splice(newArray.findIndex(l => l.woeid === location.woeid), 1);
-		var newBoard = {
-			id: this.state.board.id,
-			name: this.state.board.name,
-			locations: newArray
-		}
+		const locationIndex = this.state.board.locations.findIndex(l => l.woeid === location.woeid);
+		const newBoard = update(this.state.board, { locations: { $splice: [[locationIndex, 1]] } })
 		this.props.actions.editBoard(newBoard);
 	}
 

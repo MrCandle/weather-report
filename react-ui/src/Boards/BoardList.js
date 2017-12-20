@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button } from 'reactstrap';
+import { Col, Row, Button } from 'reactstrap';
 import BoardCard from './BoardCard';
 import BoardModal from './BoardModal';
 import * as boardListActions from '../actions/boardListActions';
@@ -46,18 +46,18 @@ class BoardList extends Component {
 		return (
 			<div>
 				<h2>Welcome, {this.state.username}</h2>
-				<div class="row">
+				<Row>
 					{this.state.boards.map(board =>
-						<div className="col-sm-12 col-md-6 col-lg-3" style={styles.cardColumn}>
+						<Col sm='12' md='6' lg='3' style={styles.cardColumn}>
 							<BoardCard username={this.state.username} board={board}></BoardCard>
-						</div>
+						</Col>
 					)}
-				</div>
-				<div class="row">
-					<div class="offset-sm-9">
+				</Row>
+				<Row>
+					<Col sm={{ size: 'auto', offset: 9 }}>
 						<Button color="primary" onClick={this.toggleModal}>Add board</Button>
-					</div>
-				</div>
+					</Col>
+				</Row>
 				{this.state.modal &&
 					<BoardModal isNew={true} onSave={this.handleSave} onCancel={this.toggleModal}></BoardModal>}
 			</div>

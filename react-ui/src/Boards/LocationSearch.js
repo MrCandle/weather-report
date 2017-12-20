@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Async } from 'react-select';
+import { Row } from 'reactstrap';
 import locationApi from '../api/locationApi';
 import styles from './styles';
 
@@ -30,9 +31,9 @@ class LocationSearch extends Component {
 
     render() {
         return (
-            <div class="row" style={styles.locationSearch}>
-                <Async className="col-sm-12" onChange={this.props.handler} loadOptions={this.getLocations} autoload={false} />
-            </div>
+            <Row style={styles.locationSearch}>
+                <Async className='col-sm-12' style={styles.noPadding} onChange={this.props.handler} loadOptions={this.getLocations} autoload={false} />
+            </Row>
         )
     }
 }

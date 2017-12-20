@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import { Jumbotron, Button } from 'reactstrap';
+import { Jumbotron, Button, Row } from 'reactstrap';
 import styles from './styles';
 
 class Home extends Component {
   render() {
     return (
-		<div class="row">
+		<Row>
       <Jumbotron style={styles.jumbotron}>
         <h1 className="display-3">Welcome!</h1>
         <p className="lead">This is the best weather application you'll find around. Hope you have a great time here.</p>
@@ -18,7 +18,7 @@ class Home extends Component {
 				</Link>
         </p>
       </Jumbotron>
-    </div>
+    </Row>
     );
   }
 }

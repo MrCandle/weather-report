@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Col, Row, Fade } from 'reactstrap';
 import LocationCard from './LocationCard';
 import styles from './styles';
 
@@ -24,13 +25,15 @@ class LocationList extends Component {
 
     render() {
         return (
-            <div class="row" style={styles.locationList}>
+            <Row style={styles.locationList}>
                 {this.state.locations.map(loc =>
-                    <div class="col-sm-3">
-                        <LocationCard handleRemoval={this.handleRemoval} location={loc} />
-                    </div>
+                    <Col sm='3'>
+                        <Fade>
+                            <LocationCard handleRemoval={this.handleRemoval} location={loc} />
+                        </Fade>
+                    </Col>
                 )}
-            </div>
+            </Row>
         )
     }
 }

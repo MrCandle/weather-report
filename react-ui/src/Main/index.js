@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { Container } from 'reactstrap';
 import Home from '../Home';
 import Boards from '../Boards';
 import Login from '../Login';
@@ -10,23 +11,23 @@ function isLoggedIn() {
 
 class Main extends Component {
 
-  render() {
-    return (
-			<div class="container">
+	render() {
+		return (
+			<Container>
 				<Switch>
 					<Route exact path='/' component={Home} />
 					<Route path='/login' component={Login} />
 					<Route path='/boards' render={() => (
 						isLoggedIn() ? (
-						<Boards />
+							<Boards />
 						) : (
-							<Redirect to='/login'/>
-						)
-					)}/>
+								<Redirect to='/login' />
+							)
+					)} />
 				</Switch>
-			</div>
-    );
-  }
+			</Container>
+		);
+	}
 }
 
 export default Main;
