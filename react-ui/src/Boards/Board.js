@@ -17,6 +17,7 @@ class Board extends Component {
 		super();
 
 		this.state = {
+			username: sessionStorage.getItem('currentUser'),
 			board: props.board,
 			modal: false
 		}
@@ -29,7 +30,7 @@ class Board extends Component {
 
 	componentDidMount() {
 		if (!this.props.board.id) {
-			this.props.actions.fetchBoard(this.props.match.params.boardId);
+			this.props.actions.fetchBoard(this.state.username, this.props.match.params.boardId);
 		}
 	}
 
@@ -40,7 +41,7 @@ class Board extends Component {
 	locationSelected(location) {
 		locationApi.getLocationById(location.value).then(location => {
 			const newBoard = update(this.state.board, { locations: { $push: [location] } })
-			this.props.actions.editBoard(newBoard);
+			this.props.actions.editBoard(this.state.username, newBoard);
 		})
 	}
 
@@ -50,14 +51,14 @@ class Board extends Component {
 
 	handleSave(newName) {
 		const newBoard = update(this.state.board, {name: {$set: newName}})
-		this.props.actions.editBoard(newBoard);
+		this.props.actions.editBoard(this.state.username, newBoard);
 		this.toggleModal();
 	}
 
 	handleRemoval(location) {
 		const locationIndex = this.state.board.locations.findIndex(l => l.woeid === location.woeid);
 		const newBoard = update(this.state.board, { locations: { $splice: [[locationIndex, 1]] } })
-		this.props.actions.editBoard(newBoard);
+		this.props.actions.editBoard(this.state.username, newBoard);
 	}
 
 	render() {

@@ -3,11 +3,11 @@ var board = require('../controllers/boardController');
 var user = require('../controllers/userController');
 
 module.exports = function (app) {
-	app.route('/api/boards')
+	app.route('/api/boards/:username')
 		.get(board.getAll)
 		.post(board.create);
 
-	app.route('/api/boards/:boardId')
+	app.route('/api/boards/:username/:boardId')
 		.get(board.getById)
 		.put(board.update)
 		.delete(board.remove);

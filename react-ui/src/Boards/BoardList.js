@@ -28,13 +28,13 @@ class BoardList extends Component {
 	}
 
 	handleSave(name) {
-		this.props.actions.addBoard(name);
+		this.props.actions.addBoard(this.state.username, name);
 		this.toggleModal();
 	}
 
 	componentDidMount() {
 		if (this.props.boards.length === 0) {
-			this.props.actions.fetchBoards();
+			this.props.actions.fetchBoards(this.state.username);
 		}
 	}
 

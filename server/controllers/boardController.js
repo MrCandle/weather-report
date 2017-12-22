@@ -1,48 +1,22 @@
 'use strict';
 
-var nextId = 5;
-const boards = [{
-	id: 1,
-	name: 'board 1',
-	locations: [{
-		woeid: '2460286',
-		title: 'Nome, AK, United States',
-		condition: {
-			temp: '19',
-			text: 'Sunny'
-		},
-		forecast: [{
-			day: 'dia pepe',
-			date: 'date',
-			high: '33',
-			low: '19'
-		}]
-	}]
-},
-{
-	id: 2,
-	name: 'board 2',
-	locations: []
-},
-{
-	id: 3,
-	name: 'board 3',
-	locations: []
-},
-{
-	id: 4,
-	name: 'board 4',
-	locations: []
-},
-];
+var nextId = 1;
+const boards = {};
 
 exports.getAll = function (req, res) {
-	res.json(boards);
+	if (req.params.username) {
+		var boardsByUser = boards[req.params.username];
+		if (!boardsByUser) {
+			res.json([]);
+		}
+		res.json(boardsByUser);
+	}
+	return res.sendStatus(400);
 };
 
 exports.create = function (req, res) {
-	if (req.body.name) {
-		boards.push({
+	if (req.params.username && req.body.name) {
+		boards[req.params.username].push({
 			id: nextId,
 			name: req.body.name,
 			locations: []
@@ -50,24 +24,42 @@ exports.create = function (req, res) {
 		nextId++;
 		return res.sendStatus(200);
 	}
-
 	return res.sendStatus(400);
 };
 
 exports.getById = function (req, res) {
-	var board = boards.find(b => b.id === +req.params.boardId);
-	res.json(board);
+	if (req.params.username && req.params.boardId) {
+		var boardsByUser = boards[req.params.username];
+		if (!boardsByUser) {
+			return res.sendStatus(404);
+		}
+
+		var board = boardsByUser.find(b => b.id === +req.params.boardId);
+		if (!board) {
+			return res.sendStatus(404);
+		}
+		res.json(board);
+	}
+	return res.sendStatus(400);
+
 };
 
 exports.update = function (req, res) {
-	const board = req.body.board;
-	
-	if (board) {
-		const item = boards.find(b => b.id === board.id);
-		if (item) {
-			item.name = board.name;
-			item.locations = board.locations;
-			return res.sendStatus(200);
+	if (req.params.username) {
+		var boardsByUser = boards[req.params.username];
+		if (!boardsByUser) {
+			return res.sendStatus(404);
+		}
+
+		const board = req.body.board;
+
+		if (board) {
+			const item = boardsByUser.find(b => b.id === board.id);
+			if (item) {
+				item.name = board.name;
+				item.locations = board.locations;
+				return res.sendStatus(200);
+			}
 		}
 	}
 

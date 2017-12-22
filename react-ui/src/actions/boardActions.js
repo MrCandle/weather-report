@@ -7,18 +7,18 @@ function fetchBoardSuccess(board){
 	}
 }
 
-export function fetchBoard(id) {
+export function fetchBoard(username, id) {
 	return function (dispatch) {
-		return boardApi.getBoard(id).then(board => {
+		return boardApi.getBoard(username, id).then(board => {
 			dispatch(fetchBoardSuccess(board));
 		});
 	}
 }
 
-export function editBoard(board) {
+export function editBoard(username, board) {
 	return function (dispatch) {
-		return boardApi.editBoard(board).then(response => {
-			return boardApi.getBoard(board.id).then(board => {
+		return boardApi.editBoard(username, board).then(response => {
+			return boardApi.getBoard(username, board.id).then(board => {
 				dispatch(fetchBoardSuccess(board));
 			});
 		});
