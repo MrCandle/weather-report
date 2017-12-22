@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import userApi from '../api/userApi';
 import styles from './styles';
-import history from '../history';
+
 
 class Register extends Component {
 
@@ -31,7 +31,7 @@ class Register extends Component {
 	handleClick(event){
 		userApi.register(this.state.username, this.state.password, this.state.email).then(res => {
 			console.log(res);
-			history.push('/');
+			this.props.history.push("/");
 			sessionStorage.setItem('currentUser', this.state.username);		
 		},
 		e => {
@@ -110,5 +110,5 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withRouter(Register);
 
