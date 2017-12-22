@@ -17,7 +17,7 @@ export function fetchBoards(username) {
 
 export function addBoard(username, name) {
 	return function (dispatch) {
-		return boardApi.addBoard(username, 	name).then(response => {
+		return boardApi.addBoard(username, name).then(response => {
 			return boardApi.fetchBoards(username).then(boards => {
 				dispatch(fetchBoardsSuccess(boards));
 			});
@@ -27,7 +27,7 @@ export function addBoard(username, name) {
 
 export function removeBoard(username, id) {
 	return function (dispatch) {
-		return boardApi.removeBoard(id).then(response => {
+		return boardApi.removeBoard(username, id).then(response => {
 			return boardApi.fetchBoards(username).then(boards => {
 				dispatch(fetchBoardsSuccess(boards));
 			});

@@ -11,44 +11,48 @@ exports.getAll = function (req, res) {
 		}
 		res.json(boardsByUser);
 	}
-	return res.sendStatus(400);
+	res.sendStatus(400);
 };
 
 exports.create = function (req, res) {
 	if (req.params.username && req.body.name) {
-		boards[req.params.username].push({
+		var newBoard = {
 			id: nextId,
 			name: req.body.name,
 			locations: []
-		});
+		}
+		if (boards[req.params.username]) {
+			boards[req.params.username].push(newBoard);
+		} else {
+			boards[req.params.username] = [newBoard];
+		}
 		nextId++;
-		return res.sendStatus(200);
+		res.sendStatus(200);
 	}
-	return res.sendStatus(400);
+	res.sendStatus(400);
 };
 
 exports.getById = function (req, res) {
 	if (req.params.username && req.params.boardId) {
 		var boardsByUser = boards[req.params.username];
 		if (!boardsByUser) {
-			return res.sendStatus(404);
+			res.sendStatus(404);
 		}
 
 		var board = boardsByUser.find(b => b.id === +req.params.boardId);
 		if (!board) {
-			return res.sendStatus(404);
+			res.sendStatus(404);
 		}
 		res.json(board);
 	}
-	return res.sendStatus(400);
-
+	res.sendStatus(400);
 };
 
 exports.update = function (req, res) {
 	if (req.params.username) {
 		var boardsByUser = boards[req.params.username];
 		if (!boardsByUser) {
-			return res.sendStatus(404);
+			res.sendStatus(404);
 		}
 
 		const board = req.body.board;
@@ -58,20 +62,26 @@ exports.update = function (req, res) {
 			if (item) {
 				item.name = board.name;
 				item.locations = board.locations;
-				return res.sendStatus(200);
+				res.sendStatus(200);
 			}
 		}
 	}
-
-	return res.sendStatus(400);
+	res.sendStatus(400);
 };
 
 exports.remove = function (req, res) {
-	//   Task.remove({
-	//     _id: req.params.boardId
-	//   }, function(err, board) {
-	//     if (err)
-	//       res.send(err);
-	//     res.json({ message: 'Task successfully deleted' });
-	//   });
+	if (req.params.username && req.params.boardId) {
+		var boardsByUser = boards[req.params.username];
+		if (!boardsByUser) {
+			res.sendStatus(404);
+		}
+
+		var boardIndex = boardsByUser.findIndex(b => b.id === +req.params.boardId);
+		if (boardIndex < 0) {
+			res.sendStatus(404);
+		}
+		boardsByUser.splice(boardIndex, 1);
+		res.json(boardsByUser);
+	}
+	res.sendStatus(400);
 };

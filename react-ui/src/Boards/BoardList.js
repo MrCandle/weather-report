@@ -19,6 +19,7 @@ class BoardList extends Component {
 
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleSave = this.handleSave.bind(this);
+		this.handleRemove = this.handleRemove.bind(this);
 	}
 
 	toggleModal() {
@@ -30,6 +31,10 @@ class BoardList extends Component {
 	handleSave(name) {
 		this.props.actions.addBoard(this.state.username, name);
 		this.toggleModal();
+	}
+
+	handleRemove(id){
+		this.props.actions.removeBoard(this.state.username, id);
 	}
 
 	componentDidMount() {
@@ -49,7 +54,7 @@ class BoardList extends Component {
 				<Row>
 					{this.state.boards.map(board =>
 						<Col sm='12' md='6' lg='3' style={styles.cardColumn}>
-							<BoardCard username={this.state.username} board={board}></BoardCard>
+							<BoardCard username={this.state.username} board={board} onRemove={this.handleRemove}></BoardCard>
 						</Col>
 					)}
 				</Row>

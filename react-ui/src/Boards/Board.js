@@ -66,7 +66,7 @@ class Board extends Component {
 			<div>
 				<h2>{this.state.board.name}: <span onClick={this.toggleModal}><FaPencil size={18} color="gray" style={{ marginLeft: '10px', verticalAlign: 'top' }} /></span></h2>
 				<LocationSearch handler={this.locationSelected} />
-				<LocationList locations={this.state.board.locations} handleRemoval={this.handleRemoval} />
+				<LocationList locations={this.state.board.locations} onRemoval={this.handleRemoval} />
 				{this.state.modal &&
 					<BoardModal isNew={false} name={this.state.board.name} onSave={this.handleSave} onCancel={this.toggleModal}></BoardModal>}
 			</div>
