@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText, Alert } from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import userApi from '../api/userApi';
 import styles from './styles';
 
@@ -31,15 +31,13 @@ class Register extends Component {
 
 	handleClick(event){
 		userApi.register(this.state.username, this.state.password, this.state.email).then(res => {
-			console.log(res);
-			this.props.history.push("/");
 			sessionStorage.setItem('currentUser', this.state.username);		
+			this.props.history.push(`/boards/${this.state.username}`);
 		},
 		e => {
 			if(e.response.status===404){
 				this.setState({takenUsername: true});
 			}
-			console.log(e);
 		});
 	}
 
