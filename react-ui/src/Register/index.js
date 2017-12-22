@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText, Alert } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
 import userApi from '../api/userApi';
 import styles from './styles';
@@ -15,7 +15,8 @@ class Register extends Component {
 			confirmPassword: '',
 			confirmPasswordValid: null,
 			email: '',
-			acceptToS: false
+			acceptToS: false,
+			takenUsername: false
 		};
 
 		this.handleClick = this.handleClick.bind(this);
@@ -35,6 +36,9 @@ class Register extends Component {
 			sessionStorage.setItem('currentUser', this.state.username);		
 		},
 		e => {
+			if(e.response.status===404){
+				this.setState({takenUsername: true});
+			}
 			console.log(e);
 		});
 	}
@@ -78,6 +82,9 @@ class Register extends Component {
   render() {
     return (
 			<div style={styles.registerForm}>
+				<Alert isOpen={this.state.takenUsername} color="danger">
+					That username or email is already taken.
+				</Alert>
 				<h3>Register</h3>
 				<Form>
 					<FormGroup>
