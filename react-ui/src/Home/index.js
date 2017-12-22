@@ -14,7 +14,11 @@ class Home extends Component {
         <p>This is a WIP though, and may contain several bugs and lack of features. We are working on it.</p>
         <p className="lead">
 				<Link to='/login'>
-          <Button color="primary">Sign In</Button>
+          <Button color="primary">Sign in</Button>
+				</Link>{' '}
+				or
+				<Link to='/register'>
+          <Button color="link">Sign up</Button>
 				</Link>
         </p>
       </Jumbotron>

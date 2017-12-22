@@ -7,12 +7,13 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/store'
 import 'bootstrap/dist/css/bootstrap.css';
+import history from './history';
 
 const store = configureStore()
 
 ReactDOM.render((
 	<Provider store={store}>	
-		<BrowserRouter>
+		<BrowserRouter history={history}>
 			<App />
 		</BrowserRouter>
 	</Provider>

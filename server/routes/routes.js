@@ -1,5 +1,6 @@
 'use strict';
 var board = require('../controllers/boardController');
+var user = require('../controllers/userController');
 
 module.exports = function (app) {
 	app.route('/api/boards')
@@ -10,4 +11,10 @@ module.exports = function (app) {
 		.get(board.getById)
 		.put(board.update)
 		.delete(board.remove);
+
+	app.route('/api/user')
+		.post(user.login);
+
+	app.route('/api/user/register')
+		.post(user.register);
 };
