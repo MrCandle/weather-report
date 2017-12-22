@@ -35,7 +35,7 @@ class BoardCard extends Component {
                     <CardText>
                         {this.state.board.locations.length > 0 ?
                             <ListGroup>
-                                {this.state.board.locations.map(loc => <ListGroupItem>{loc.title}</ListGroupItem>)}
+                                {this.state.board.locations.map(loc => <ListGroupItem key={loc.woeid}>{loc.title}</ListGroupItem>)}
                             </ListGroup>
                             : <span>This board doesn't have locations! Try adding one</span>}
                     </CardText>

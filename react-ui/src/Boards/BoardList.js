@@ -53,7 +53,7 @@ class BoardList extends Component {
 				<h2>Welcome, {this.state.username}</h2>
 				<Row>
 					{this.state.boards.map(board =>
-						<Col sm='12' md='6' lg='3' style={styles.cardColumn}>
+						<Col key={board.id} sm='12' md='6' lg='3' style={styles.cardColumn}>
 							<BoardCard username={this.state.username} board={board} onRemove={this.handleRemove}></BoardCard>
 						</Col>
 					)}

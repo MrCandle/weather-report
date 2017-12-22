@@ -20,14 +20,14 @@ class LocationList extends Component {
     }
 
     handleRemoval(location) {
-        this.props.handleRemoval(location);
+        this.props.onRemoval(location);
     }
 
     render() {
         return (
             <Row style={styles.locationList}>
                 {this.state.locations.map(loc =>
-                    <Col sm='3'>
+                    <Col key={loc.woeid} sm='3'>
                         <Fade>
                             <LocationCard handleRemoval={this.handleRemoval} location={loc} />
                         </Fade>
