@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import { Collapse,  Navbar,  NavbarToggler,  NavbarBrand,  Nav,  NavItem,  NavLink,
   UncontrolledDropdown,  DropdownToggle,  DropdownMenu,  DropdownItem, Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class Header extends Component {
 
 	constructor(props) {
 		super(props);
 
-		this.toggle = this.toggle.bind(this);
 		this.state = {
       isOpen: false
-    };
+		};
+
+		this.toggle = this.toggle.bind(this);
+		this.goToMyBoards = this.goToMyBoards.bind(this);
 	}
 
 	isLoggedIn(){
 		return sessionStorage.getItem('currentUser') !== null;
 	}	
+
+	goToMyBoards(){
+		this.props.history.push(`/boards/${sessionStorage.getItem('currentUser')}`)
+	}
 
 	toggle() {
     this.setState({
@@ -26,11 +32,16 @@ class Header extends Component {
 	
   render() {
     return (
-			<Navbar color="dark" dark expand="md">
-				<NavbarBrand href="/">Mostly Accurate Weather Report</NavbarBrand>
+			<Navbar color='dark' dark expand='md'>
+				<NavbarBrand href='/'>Mostly Accurate Weather Report</NavbarBrand>
 				<NavbarToggler onClick={this.toggle} />
 				<Collapse isOpen={this.state.isOpen} navbar>
-					<Nav className="ml-auto" navbar>
+					<Nav className='ml-auto' navbar>
+						{ this.isLoggedIn() && 
+						<NavItem>
+							<NavLink onClick={this.goToMyBoards}>My boards</NavLink>
+						</NavItem>
+						}
 						{this.isLoggedIn() ? <Logged /> : <Login />}
 					</Nav>
 				</Collapse>
@@ -44,8 +55,8 @@ class Login extends Component {
   render() {
     return (
 			<NavItem>
-				<NavLink tag={Link} to="/login">
-					<Button color="primary">Sign In</Button>
+				<NavLink tag={Link} to='/login'>
+					<Button color='primary'>Sign In</Button>
 				</NavLink>
 			</NavItem>
     );
@@ -58,23 +69,20 @@ class Logged extends Component {
     return (
 			<UncontrolledDropdown nav inNavbar>
 				<DropdownToggle nav caret>
-					Options
+					User
 				</DropdownToggle>
 				<DropdownMenu >
 					<DropdownItem>
-						Option 1
-					</DropdownItem>
-					<DropdownItem>
-						Option 2
+						Profile
 					</DropdownItem>
 					<DropdownItem divider />
 					<DropdownItem>
-						Reset
+						Log out
 					</DropdownItem>
 				</DropdownMenu>
 			</UncontrolledDropdown>
     );
   }
 }
-export default Header;
+export default withRouter(Header);
 
